@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LINE Chatbot x n8n ฉบับสมบูรณ์ 2026 - สร้างระบบ Automation ไม่ต้องเขียนโค้ดทั้งระบบ</title>
-    <meta name="description" content="E-Book สอนสร้าง LINE Chatbot ด้วย n8n แบบ Step-by-Step เจาะลึก Automation, AI Agent, Google Sheets ราคาเพียง 599 บาท">
+    <meta name="description"
+        content="E-Book สอนสร้าง LINE Chatbot ด้วย n8n แบบ Step-by-Step เจาะลึก Automation, AI Agent, Google Sheets ราคาเพียง 599 บาท">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600;700;800&display=swap" rel="stylesheet">
@@ -34,657 +36,926 @@
         }
     </script>
     <style>
-        .gradient-text { background: linear-gradient(135deg, #00C300, #FF4733); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .hero-bg { background-image: radial-gradient(circle at 30% 50%, rgba(0,195,0,0.06) 0%, transparent 60%), radial-gradient(circle at 70% 80%, rgba(255,71,51,0.04) 0%, transparent 50%); }
-        .book-shadow { box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15), 0 0 40px rgba(0,195,0,0.15); }
-        html { scroll-behavior: smooth; }
-        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; }
-        .accordion-content.open { max-height: 600px; }
-        .accordion-btn.active .accordion-icon { transform: rotate(180deg); }
-        .accordion-icon { transition: transform 0.3s ease; }
-        .glass { background: rgba(255,255,255,0.7); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
-        @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-        .float-anim { animation: float 4s ease-in-out infinite; }
+        .gradient-text {
+            background: linear-gradient(135deg, #00C300, #FF4733);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-bg {
+            background-image: radial-gradient(circle at 30% 50%, rgba(0, 195, 0, 0.06) 0%, transparent 60%), radial-gradient(circle at 70% 80%, rgba(255, 71, 51, 0.04) 0%, transparent 50%);
+        }
+
+        .book-shadow {
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15), 0 0 40px rgba(0, 195, 0, 0.15);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+        }
+
+        .accordion-content.open {
+            max-height: 600px;
+        }
+
+        .accordion-btn.active .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        .accordion-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .float-anim {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .contents-card {
+            animation: slideUp 0.6s ease-out forwards;
+            opacity: 0;
+        }
+
+        .contents-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .contents-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .contents-card:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .contents-card:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        .contents-card:nth-child(5) {
+            animation-delay: 0.5s;
+        }
     </style>
 </head>
+
 <body class="text-gray-800 antialiased bg-white">
 
-<!-- ========== NAVBAR ========== -->
-<nav id="navbar" class="fixed w-full z-50 bg-white/90 backdrop-blur-md shadow-sm transition-all duration-300">
-    <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
-        <a href="#" class="flex items-center gap-3 group">
-            <img src="images/logo-128-tr.jpg" alt="Logo" class="w-10 h-10 rounded-full border border-gray-200 shadow-sm group-hover:scale-110 transition duration-300">
-            <span class="font-bold text-xl tracking-tight text-gray-900 group-hover:text-primary transition">LINE Chatbot x n8n 🤖</span>
-        </a>
-        <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-600">
-            <a href="#" class="hover:text-primary transition">หน้าแรก</a>
-            <a href="#toc" class="hover:text-primary transition">สารบัญ</a>
-            <a href="#preview-gallery" class="hover:text-primary transition">ตัวอย่าง</a>
-            <a href="#pricing" class="hover:text-primary transition">ราคา</a>
-        </div>
-        <a href="#pricing" class="bg-primary hover:bg-green-600 text-white font-semibold py-2 px-5 rounded-full transition duration-300 text-sm shadow-lg hover:shadow-green-500/30 flex items-center gap-2">
-            <i class="fa-solid fa-cart-shopping"></i> สั่งซื้อทันที
-        </a>
-    </div>
-</nav>
-
-<!-- ========== HERO ========== -->
-<section class="pt-32 pb-16 px-4 hero-bg overflow-hidden">
-    <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-        <div class="text-center md:text-left space-y-6 animate-slide-up">
-            <div class="flex flex-wrap gap-2 justify-center md:justify-start">
-                <span class="inline-block bg-green-100 text-primary px-3 py-1 rounded-full text-sm font-semibold border border-green-200">🔥 คู่มือ Automation ฉบับใช้งานจริง</span>
-                <span class="inline-block bg-orange-100 text-secondary px-3 py-1 rounded-full text-sm font-semibold border border-orange-200">📚 จัดเต็ม 5 บทเรียน + 2 เวิร์กชอป</span>
+    <!-- ========== NAVBAR ========== -->
+    <nav id="navbar" class="fixed w-full z-50 bg-white/90 backdrop-blur-md shadow-sm transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="#" class="flex items-center gap-3 group">
+                <img src="images/logo-128-tr.jpg" alt="Logo"
+                    class="w-10 h-10 rounded-full border border-gray-200 shadow-sm group-hover:scale-110 transition duration-300">
+                <span class="font-bold text-xl tracking-tight text-gray-900 group-hover:text-primary transition">LINE
+                    Chatbot x n8n 🤖</span>
+            </a>
+            <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-600">
+                <a href="#" class="hover:text-primary transition">หน้าแรก</a>
+                <a href="#toc" class="hover:text-primary transition">สารบัญ</a>
+                <a href="#contents-preview" class="hover:text-primary transition">สารบัญในเล่ม</a>
+                <a href="#preview-gallery" class="hover:text-primary transition">ตัวอย่าง</a>
+                <a href="#pricing" class="hover:text-primary transition">ราคา</a>
             </div>
-            <h1 class="text-4xl md:text-5xl font-extrabold">
-                <span class="block mb-3"><span class="gradient-text">LINE Chatbot x n8n</span> 🤖</span>
-                <span class="block mb-3">สร้าง <span class="text-secondary italic">Automation</span> สุดล้ำ</span>
-                <span class="block">ลดงานซ้ำซ้อนให้เป็นศูนย์</span>
-            </h1>
-            <div class="border-l-4 border-secondary pl-4 py-2 bg-gray-50 rounded-r-lg">
-                <p class="text-lg italic text-gray-700 font-medium">
-                    "<span class="text-primary font-bold">Automation ไม่ได้มาแทนคน…แต่มาให้คนมีเวลาทำสิ่งที่สำคัญกว่า</span>"<br/>
-                    <span class="text-base">เจาะลึกการสร้าง AI Chatbot ฉบับทำตามได้จริง</span>
+            <a href="#pricing"
+                class="bg-primary hover:bg-green-600 text-white font-semibold py-2 px-5 rounded-full transition duration-300 text-sm shadow-lg hover:shadow-green-500/30 flex items-center gap-2">
+                <i class="fa-solid fa-cart-shopping"></i> สั่งซื้อทันที
+            </a>
+        </div>
+    </nav>
+
+    <!-- ========== HERO ========== -->
+    <section class="pt-32 pb-16 px-4 hero-bg overflow-hidden">
+        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+            <div class="text-center md:text-left space-y-6 animate-slide-up">
+                <div class="flex flex-wrap gap-2 justify-center md:justify-start">
+                    <span
+                        class="inline-block bg-green-100 text-primary px-3 py-1 rounded-full text-sm font-semibold border border-green-200">🔥
+                        คู่มือ Automation ฉบับใช้งานจริง</span>
+                    <span
+                        class="inline-block bg-orange-100 text-secondary px-3 py-1 rounded-full text-sm font-semibold border border-orange-200">📚
+                        จัดเต็ม 5 บทเรียน + 2 เวิร์กชอป</span>
+                </div>
+                <h1 class="text-4xl md:text-5xl font-extrabold">
+                    <span class="block mb-3"><span class="gradient-text">LINE Chatbot x n8n</span> 🤖</span>
+                    <span class="block mb-3">สร้าง <span class="text-secondary italic">Automation</span> สุดล้ำ</span>
+                    <span class="block">ลดงานซ้ำซ้อนให้เป็นศูนย์</span>
+                </h1>
+                <div class="border-l-4 border-secondary pl-4 py-2 bg-gray-50 rounded-r-lg">
+                    <p class="text-lg italic text-gray-700 font-medium">
+                        "<span class="text-primary font-bold">Automation
+                            ไม่ได้มาแทนคน…แต่มาให้คนมีเวลาทำสิ่งที่สำคัญกว่า</span>"<br />
+                        <span class="text-base">เจาะลึกการสร้าง AI Chatbot ฉบับทำตามได้จริง</span>
+                    </p>
+                </div>
+                <p class="text-lg text-gray-600">อ่านง่าย ทำตามได้จริง! เปลี่ยน LINE OA ธรรมดาให้คุยกับระบบฐานข้อมูล
+                    Google Sheets และ AI Agent ได้อัตโนมัติ เหมาะสำหรับ <span
+                        class="font-bold text-gray-800">เจ้าของธุรกิจ LINE OA, Developer, เจ้าหน้าที่ IT และผู้ที่สนใจ
+                        Automation</span></p>
+
+                <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start pt-2">
+                    <a href="#pricing"
+                        class="bg-gradient-to-r from-primary to-secondary hover:opacity-90 text-white text-lg font-bold py-3 px-6 rounded-xl shadow-lg transform hover:-translate-y-1 transition duration-300 text-center flex flex-col items-center">
+                        <span class="flex items-center gap-2">ช้อปเลย (599.-) <i
+                                class="fa-solid fa-cart-shopping"></i></span>
+                        <span class="text-xs font-normal text-white/90 mt-1">รองรับ QR Code PromptPay</span>
+                    </a>
+                    <a href="#toc"
+                        class="border-2 border-gray-300 hover:border-primary text-gray-700 font-semibold py-3 px-6 rounded-xl transition duration-300 bg-white flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-list"></i> ดูสารบัญ
+                    </a>
+                </div>
+
+                <p class="text-sm text-gray-500 mt-4 flex items-center justify-center md:justify-start gap-4">
+                    <span class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-1"></i> E-Book รับไฟล์
+                        PDF ทางอีเมล</span>
+                    <span class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-1"></i>
+                        อ่านได้ทุกอุปกรณ์</span>
                 </p>
             </div>
-            <p class="text-lg text-gray-600">อ่านง่าย ทำตามได้จริง! เปลี่ยน LINE OA ธรรมดาให้คุยกับระบบฐานข้อมูล Google Sheets และ AI Agent ได้อัตโนมัติ เหมาะสำหรับ <span class="font-bold text-gray-800">เจ้าของธุรกิจ LINE OA, Developer, เจ้าหน้าที่ IT และผู้ที่สนใจ Automation</span></p>
 
-            <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start pt-2">
-                <a href="#pricing" class="bg-gradient-to-r from-primary to-secondary hover:opacity-90 text-white text-lg font-bold py-3 px-6 rounded-xl shadow-lg transform hover:-translate-y-1 transition duration-300 text-center flex flex-col items-center">
-                    <span class="flex items-center gap-2">ช้อปเลย (599.-) <i class="fa-solid fa-cart-shopping"></i></span>
-                    <span class="text-xs font-normal text-white/90 mt-1">รองรับ QR Code PromptPay</span>
-                </a>
-                <a href="#toc" class="border-2 border-gray-300 hover:border-primary text-gray-700 font-semibold py-3 px-6 rounded-xl transition duration-300 bg-white flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-list"></i> ดูสารบัญ
-                </a>
+            <!-- Book Cover -->
+            <div class="flex flex-col items-center animate-fade-in">
+                <div class="relative flex justify-center group cursor-pointer mb-8"
+                    onclick="openLightbox('images/cover-n8n.png')">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-tr from-green-200 to-orange-200 rounded-full blur-3xl opacity-30 transform scale-90 group-hover:scale-100 transition duration-500">
+                    </div>
+                    <div
+                        class="absolute -top-4 -right-4 z-20 bg-red-500 text-white font-bold w-20 h-20 rounded-full flex items-center justify-center text-center text-xs shadow-xl rotate-12 animate-bounce-slow border-4 border-white pointer-events-none">
+                        ฉบับ<br>ใช้งานจริง</div>
+                    <div
+                        class="relative z-10 w-72 h-[450px] transform rotate-3 group-hover:rotate-0 transition duration-500 book-shadow">
+                        <img src="images/cover-n8n.png"
+                            onerror="this.src='https://placehold.co/600x900/00C300/FFF?text=LINE+x+n8n'"
+                            alt="Ebook Cover"
+                            class="w-full h-full object-cover rounded-r-2xl rounded-l-md border-l-8 border-gray-700">
+                        <div
+                            class="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 rounded-r-2xl rounded-l-md">
+                            <i class="fa-solid fa-magnifying-glass-plus text-white text-4xl drop-shadow-lg"></i>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="glass border border-green-100 p-5 rounded-2xl shadow-lg max-w-sm text-center transform hover:scale-105 transition duration-300 relative">
+                    <div
+                        class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-white rounded-full p-1 shadow-sm">
+                        <i class="fa-solid fa-quote-left text-primary text-2xl"></i></div>
+                    <p class="text-gray-700 font-semibold italic mt-2 leading-relaxed">
+                        เปลี่ยน LINE OA ที่ต้องใช้แอดมินตอบทั้งวัน<br>ให้กลายเป็นระบบอัตโนมัติ 100% 🤖<br>
+                        <span class="text-sm font-bold text-secondary not-italic">"เจาะลึก n8n แบบ Step-by-Step พร้อม
+                            Workflow สำเร็จรูป!" 🔥</span>
+                    </p>
+                </div>
             </div>
-
-            <p class="text-sm text-gray-500 mt-4 flex items-center justify-center md:justify-start gap-4">
-                <span class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-1"></i> E-Book รับไฟล์ PDF ทางอีเมล</span>
-                <span class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-1"></i> อ่านได้ทุกอุปกรณ์</span>
-            </p>
         </div>
+    </section>
 
-        <!-- Book Cover -->
-        <div class="flex flex-col items-center animate-fade-in">
-            <div class="relative flex justify-center group cursor-pointer mb-8" onclick="openLightbox('images/cover-n8n.png')">
-                <div class="absolute inset-0 bg-gradient-to-tr from-green-200 to-orange-200 rounded-full blur-3xl opacity-30 transform scale-90 group-hover:scale-100 transition duration-500"></div>
-                <div class="absolute -top-4 -right-4 z-20 bg-red-500 text-white font-bold w-20 h-20 rounded-full flex items-center justify-center text-center text-xs shadow-xl rotate-12 animate-bounce-slow border-4 border-white pointer-events-none">ฉบับ<br>ใช้งานจริง</div>
-                <div class="relative z-10 w-72 h-[450px] transform rotate-3 group-hover:rotate-0 transition duration-500 book-shadow">
-                    <img src="images/cover-n8n.png" onerror="this.src='https://placehold.co/600x900/00C300/FFF?text=LINE+x+n8n'" alt="Ebook Cover" class="w-full h-full object-cover rounded-r-2xl rounded-l-md border-l-8 border-gray-700">
-                    <div class="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 rounded-r-2xl rounded-l-md">
-                        <i class="fa-solid fa-magnifying-glass-plus text-white text-4xl drop-shadow-lg"></i>
+    <!-- ========== PAIN POINTS ========== -->
+    <section class="py-16 bg-gray-50">
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">คุณกำลังเจอปัญหาเหล่านี้ในการจัดการ LINE OA ใช่ไหม?</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div
+                    class="bg-white p-6 rounded-xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition duration-300 border border-transparent hover:border-red-100">
+                    <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mb-4"><i
+                            class="fa-solid fa-repeat text-red-500 text-xl"></i></div>
+                    <h3 class="font-bold text-lg mb-2">เบื่อตอบคำถามเดิมๆ ซ้ำๆ</h3>
+                    <p class="text-gray-600 text-sm">ลูกค้าถามเวลาทำการ ขั้นตอนบริการ แจ้งโอนเงิน
+                        ต้องใช้คนคอยตอบตลอดเวลา</p>
+                </div>
+                <div
+                    class="bg-white p-6 rounded-xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition duration-300 border border-transparent hover:border-green-100">
+                    <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mb-4"><i
+                            class="fa-solid fa-file-excel text-green-500 text-xl"></i></div>
+                    <h3 class="font-bold text-lg mb-2">อยากผูก LINE กับ Google Sheets</h3>
+                    <p class="text-gray-600 text-sm">ต้องการให้ลูกค้าลงทะเบียนหรือสั่งซื้อ แล้วข้อมูลเด้งเข้า Google
+                        Sheets อัตโนมัติ</p>
+                </div>
+                <div
+                    class="bg-white p-6 rounded-xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition duration-300 border border-transparent hover:border-yellow-100">
+                    <div class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center mb-4"><i
+                            class="fa-solid fa-money-bill-wave text-yellow-500 text-xl"></i></div>
+                    <h3 class="font-bold text-lg mb-2">จ้างเขียนระบบราคาสูงปรี๊ด</h3>
+                    <p class="text-gray-600 text-sm">อยากได้ระบบแชทบอท แต่ไปตีราคาจ้างพัฒนาซอฟต์แวร์ กลับพบว่างบบานปลาย
+                    </p>
+                </div>
+                <div
+                    class="bg-white p-6 rounded-xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition duration-300 border border-transparent hover:border-orange-100">
+                    <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mb-4"><i
+                            class="fa-solid fa-ban text-orange-500 text-xl"></i></div>
+                    <h3 class="font-bold text-lg mb-2">เครื่องมือ No-Code ติดข้อจำกัด</h3>
+                    <p class="text-gray-600 text-sm">เคยใช้บอทสำเร็จรูป แต่อยากปรับแก้ Workflow ลึกๆ กลับทำไม่ได้</p>
+                </div>
+                <div
+                    class="bg-white p-6 rounded-xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition duration-300 border border-transparent hover:border-purple-100">
+                    <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mb-4"><i
+                            class="fa-solid fa-robot text-purple-500 text-xl"></i></div>
+                    <h3 class="font-bold text-lg mb-2">อยากสร้าง AI Agent ตัวเก่ง</h3>
+                    <p class="text-gray-600 text-sm">อยากเอา AI มาช่วยคัดกรองเจตนา (Intent) ของลูกค้า ว่าเขาต้องการอะไร
+                    </p>
+                </div>
+                <div
+                    class="bg-white p-6 rounded-xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition duration-300 border border-transparent hover:border-blue-100">
+                    <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-4"><i
+                            class="fa-solid fa-laptop-code text-blue-500 text-xl"></i></div>
+                    <h3 class="font-bold text-lg mb-2">ไม่มีความรู้ API / Webhook</h3>
+                    <p class="text-gray-600 text-sm">อยากดึง API มาเชื่อมระบบ แต่ไม่เข้าใจ Webhook, Request, Response
+                        ไม่รู้จะเริ่มตรงไหน</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== WHY THIS BOOK ========== -->
+    <section class="py-20 bg-white border-t border-gray-100">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">ทำไมคุณถึงห้ามพลาด E-Book เล่มนี้?</h2>
+                <p class="text-gray-600 text-lg">เปลี่ยนคุณจากผู้ใช้งาน สู่ "ผู้สร้างระบบ Automation" ได้จริงด้วยตัวเอง
+                </p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div
+                    class="bg-gray-50 p-6 rounded-xl shadow-sm border border-gray-100 flex gap-4 items-start hover:shadow-md transition">
+                    <div
+                        class="flex-shrink-0 w-12 h-12 bg-green-100 rounded-full flex items-center justify-center text-primary text-xl">
+                        <i class="fa-solid fa-network-wired"></i></div>
+                    <div>
+                        <h4 class="font-bold text-lg mb-1">1. เข้าใจโครงสร้าง API & Webhook ทะลุปรุโปร่ง</h4>
+                        <p class="text-gray-600 text-sm">ปูพื้นฐานตั้งแต่ศูนย์ อธิบายภาษาเทคนิคให้กลายเป็นภาษาคน</p>
+                    </div>
+                </div>
+                <div
+                    class="bg-gray-50 p-6 rounded-xl shadow-sm border border-gray-100 flex gap-4 items-start hover:shadow-md transition">
+                    <div
+                        class="flex-shrink-0 w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center text-secondary text-xl">
+                        <i class="fa-solid fa-code-branch"></i></div>
+                    <div>
+                        <h4 class="font-bold text-lg mb-1">2. เจาะลึก n8n แบบ Step-by-Step</h4>
+                        <p class="text-gray-600 text-sm">สอนใช้งาน n8n สร้าง Workflow Automation ไม่ต้องง้อโค้ดซับซ้อน
+                        </p>
+                    </div>
+                </div>
+                <div
+                    class="bg-gray-50 p-6 rounded-xl shadow-sm border border-gray-100 flex gap-4 items-start hover:shadow-md transition">
+                    <div
+                        class="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-blue-500 text-xl">
+                        <i class="fa-solid fa-robot"></i></div>
+                    <div>
+                        <h4 class="font-bold text-lg mb-1">3. สร้าง AI Agent ส่วนตัวใน LINE</h4>
+                        <p class="text-gray-600 text-sm">นำ AI (Gemini) มาช่วยจับเจตนาประโยค (Intent)
+                            ให้บอทฉลาดวิเคราะห์ได้</p>
+                    </div>
+                </div>
+                <div
+                    class="bg-gray-50 p-6 rounded-xl shadow-sm border border-gray-100 flex gap-4 items-start hover:shadow-md transition">
+                    <div
+                        class="flex-shrink-0 w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center text-purple-600 text-xl">
+                        <i class="fa-solid fa-file-invoice-dollar"></i></div>
+                    <div>
+                        <h4 class="font-bold text-lg mb-1">4. Workshop 1: ระบบบัญชีรับ-จ่าย AI</h4>
+                        <p class="text-gray-600 text-sm">แค่พิมพ์คุยเหมือนเพื่อน AI ลงบัญชี แยกหมวดหมู่ สรุปยอดลง Google
+                            Sheets</p>
+                    </div>
+                </div>
+                <div
+                    class="bg-gray-50 p-6 rounded-xl shadow-sm border border-gray-100 flex gap-4 items-start hover:shadow-md transition">
+                    <div
+                        class="flex-shrink-0 w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center text-pink-600 text-xl">
+                        <i class="fa-solid fa-store"></i></div>
+                    <div>
+                        <h4 class="font-bold text-lg mb-1">5. Workshop 2: ระบบร้านค้า & บัตรสมาชิก</h4>
+                        <p class="text-gray-600 text-sm">ทำระบบลงทะเบียนอัตโนมัติ สุ่มแสดงสินค้า เปลี่ยน Rich Menu
+                            เมื่อสมัครเสร็จ</p>
+                    </div>
+                </div>
+                <div
+                    class="bg-gray-50 p-6 rounded-xl shadow-sm border border-gray-100 flex gap-4 items-start hover:shadow-md transition">
+                    <div
+                        class="flex-shrink-0 w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center text-yellow-600 text-xl">
+                        <i class="fa-solid fa-download"></i></div>
+                    <div>
+                        <h4 class="font-bold text-lg mb-1">6. มี Workflow สำเร็จรูปให้ Import ทันที</h4>
+                        <p class="text-gray-600 text-sm">มีไฟล์ Workflow ที่สร้างเสร็จแล้วให้ Import เข้า n8n
+                            ไปใช้งานได้ทันที</p>
                     </div>
                 </div>
             </div>
-            <div class="glass border border-green-100 p-5 rounded-2xl shadow-lg max-w-sm text-center transform hover:scale-105 transition duration-300 relative">
-                <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-white rounded-full p-1 shadow-sm"><i class="fa-solid fa-quote-left text-primary text-2xl"></i></div>
-                <p class="text-gray-700 font-semibold italic mt-2 leading-relaxed">
-                    เปลี่ยน LINE OA ที่ต้องใช้แอดมินตอบทั้งวัน<br>ให้กลายเป็นระบบอัตโนมัติ 100% 🤖<br>
-                    <span class="text-sm font-bold text-secondary not-italic">"เจาะลึก n8n แบบ Step-by-Step พร้อม Workflow สำเร็จรูป!" 🔥</span>
-                </p>
-            </div>
         </div>
-    </div>
-</section>
+    </section>
+    <!-- ========== CONTENTS PREVIEW (พรีวิวสารบัญในเล่ม) ========== -->
+    <section id="contents-preview" class="py-20 bg-gradient-to-b from-white via-green-50/30 to-white overflow-hidden">
+        <div class="max-w-6xl mx-auto px-4">
+            <!-- Header -->
+            <div class="text-center mb-14">
+                <span
+                    class="inline-flex items-center gap-2 bg-gradient-to-r from-green-100 to-emerald-100 text-emerald-700 px-5 py-2 rounded-full text-sm font-bold mb-4 shadow-sm border border-emerald-200/50">
+                    <i class="fa-solid fa-eye animate-pulse"></i> พรีวิวเนื้อหาจริง
+                </span>
+                <h2 class="text-3xl md:text-4xl font-extrabold mb-3">
+                    📖 <span class="gradient-text">สารบัญในเล่ม</span>
+                </h2>
+                <p class="text-gray-500 max-w-2xl mx-auto">ดูรายละเอียดเนื้อหาทั้งหมดที่อัดแน่นอยู่ในหนังสือกว่า <span
+                        class="font-bold text-primary">297 หน้า</span> — คลิกเพื่อดูภาพขยาย</p>
+            </div>
 
-<!-- ========== PAIN POINTS ========== -->
-<section class="py-16 bg-gray-50">
-    <div class="max-w-6xl mx-auto px-4">
-        <h2 class="text-3xl font-bold text-center mb-12">คุณกำลังเจอปัญหาเหล่านี้ในการจัดการ LINE OA ใช่ไหม?</h2>
-        <div class="grid md:grid-cols-3 gap-8">
-            <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition duration-300 border border-transparent hover:border-red-100">
-                <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mb-4"><i class="fa-solid fa-repeat text-red-500 text-xl"></i></div>
-                <h3 class="font-bold text-lg mb-2">เบื่อตอบคำถามเดิมๆ ซ้ำๆ</h3>
-                <p class="text-gray-600 text-sm">ลูกค้าถามเวลาทำการ ขั้นตอนบริการ แจ้งโอนเงิน ต้องใช้คนคอยตอบตลอดเวลา</p>
-            </div>
-            <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition duration-300 border border-transparent hover:border-green-100">
-                <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mb-4"><i class="fa-solid fa-file-excel text-green-500 text-xl"></i></div>
-                <h3 class="font-bold text-lg mb-2">อยากผูก LINE กับ Google Sheets</h3>
-                <p class="text-gray-600 text-sm">ต้องการให้ลูกค้าลงทะเบียนหรือสั่งซื้อ แล้วข้อมูลเด้งเข้า Google Sheets อัตโนมัติ</p>
-            </div>
-            <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition duration-300 border border-transparent hover:border-yellow-100">
-                <div class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center mb-4"><i class="fa-solid fa-money-bill-wave text-yellow-500 text-xl"></i></div>
-                <h3 class="font-bold text-lg mb-2">จ้างเขียนระบบราคาสูงปรี๊ด</h3>
-                <p class="text-gray-600 text-sm">อยากได้ระบบแชทบอท แต่ไปตีราคาจ้างพัฒนาซอฟต์แวร์ กลับพบว่างบบานปลาย</p>
-            </div>
-            <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition duration-300 border border-transparent hover:border-orange-100">
-                <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mb-4"><i class="fa-solid fa-ban text-orange-500 text-xl"></i></div>
-                <h3 class="font-bold text-lg mb-2">เครื่องมือ No-Code ติดข้อจำกัด</h3>
-                <p class="text-gray-600 text-sm">เคยใช้บอทสำเร็จรูป แต่อยากปรับแก้ Workflow ลึกๆ กลับทำไม่ได้</p>
-            </div>
-            <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition duration-300 border border-transparent hover:border-purple-100">
-                <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mb-4"><i class="fa-solid fa-robot text-purple-500 text-xl"></i></div>
-                <h3 class="font-bold text-lg mb-2">อยากสร้าง AI Agent ตัวเก่ง</h3>
-                <p class="text-gray-600 text-sm">อยากเอา AI มาช่วยคัดกรองเจตนา (Intent) ของลูกค้า ว่าเขาต้องการอะไร</p>
-            </div>
-            <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition duration-300 border border-transparent hover:border-blue-100">
-                <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-4"><i class="fa-solid fa-laptop-code text-blue-500 text-xl"></i></div>
-                <h3 class="font-bold text-lg mb-2">ไม่มีความรู้ API / Webhook</h3>
-                <p class="text-gray-600 text-sm">อยากดึง API มาเชื่อมระบบ แต่ไม่เข้าใจ Webhook, Request, Response ไม่รู้จะเริ่มตรงไหน</p>
-            </div>
-        </div>
-    </div>
-</section>
+            <!-- Desktop Grid / Mobile Scroll Gallery -->
+            <div class="contents-gallery relative">
+                <!-- Scroll hint for mobile -->
+                <div class="md:hidden flex items-center justify-center gap-2 text-gray-400 text-sm mb-4">
+                    <i class="fa-solid fa-hand-pointer"></i>
+                    <span>เลื่อนเพื่อดูทั้งหมด →</span>
+                </div>
 
-<!-- ========== WHY THIS BOOK ========== -->
-<section class="py-20 bg-white border-t border-gray-100">
-    <div class="max-w-6xl mx-auto px-4">
-        <div class="text-center mb-12">
-            <h2 class="text-3xl md:text-4xl font-bold mb-4">ทำไมคุณถึงห้ามพลาด E-Book เล่มนี้?</h2>
-            <p class="text-gray-600 text-lg">เปลี่ยนคุณจากผู้ใช้งาน สู่ "ผู้สร้างระบบ Automation" ได้จริงด้วยตัวเอง</p>
+                <div class="contents-scroll flex md:grid md:grid-cols-5 gap-5 overflow-x-auto md:overflow-visible snap-x snap-mandatory pb-4 md:pb-0 scrollbar-hide"
+                    id="contents-scroll">
+                    <!-- Cover Page -->
+                    <div class="contents-card snap-center flex-shrink-0 w-[220px] md:w-auto group cursor-pointer"
+                        onclick="openLightbox('images/contents/1.png')">
+                        <div
+                            class="relative bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden hover:shadow-2xl hover:-translate-y-2 transition-all duration-500">
+                            <!-- Badge -->
+                            <div
+                                class="absolute top-3 left-3 z-10 bg-gradient-to-r from-primary to-emerald-500 text-white text-[10px] font-bold px-3 py-1 rounded-full shadow-lg">
+                                <i class="fa-solid fa-star mr-1"></i>ปก
+                            </div>
+                            <!-- Image -->
+                            <div class="relative overflow-hidden bg-gradient-to-br from-green-50 to-gray-50 p-3">
+                                <img src="images/contents/1.png" alt="ปกหนังสือ"
+                                    class="w-full h-auto rounded-xl shadow-sm group-hover:scale-105 transition duration-500">
+                                <!-- Hover overlay -->
+                                <div
+                                    class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition duration-300 rounded-xl flex items-center justify-center">
+                                    <i
+                                        class="fa-solid fa-magnifying-glass-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition duration-300 drop-shadow-lg"></i>
+                                </div>
+                            </div>
+                            <!-- Label -->
+                            <div class="p-3 text-center border-t border-gray-50">
+                                <p class="text-xs font-bold text-gray-700">📗 ปกหนังสือ</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contents Page 1 -->
+                    <div class="contents-card snap-center flex-shrink-0 w-[220px] md:w-auto group cursor-pointer"
+                        onclick="openLightbox('images/contents/2.png')">
+                        <div
+                            class="relative bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden hover:shadow-2xl hover:-translate-y-2 transition-all duration-500">
+                            <div
+                                class="absolute top-3 left-3 z-10 bg-gradient-to-r from-blue-500 to-blue-600 text-white text-[10px] font-bold px-3 py-1 rounded-full shadow-lg">
+                                <i class="fa-solid fa-list mr-1"></i>สารบัญ 1
+                            </div>
+                            <div class="relative overflow-hidden bg-gradient-to-br from-blue-50 to-gray-50 p-3">
+                                <img src="images/contents/2.png" alt="สารบัญ หน้า 1"
+                                    class="w-full h-auto rounded-xl shadow-sm group-hover:scale-105 transition duration-500">
+                                <div
+                                    class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition duration-300 rounded-xl flex items-center justify-center">
+                                    <i
+                                        class="fa-solid fa-magnifying-glass-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition duration-300 drop-shadow-lg"></i>
+                                </div>
+                            </div>
+                            <div class="p-3 text-center border-t border-gray-50">
+                                <p class="text-xs font-bold text-gray-700">📄 บทที่ 1-3</p>
+                                <p class="text-[10px] text-gray-400 mt-0.5">Automation, API, n8n พื้นฐาน</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contents Page 2 -->
+                    <div class="contents-card snap-center flex-shrink-0 w-[220px] md:w-auto group cursor-pointer"
+                        onclick="openLightbox('images/contents/3.png')">
+                        <div
+                            class="relative bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden hover:shadow-2xl hover:-translate-y-2 transition-all duration-500">
+                            <div
+                                class="absolute top-3 left-3 z-10 bg-gradient-to-r from-purple-500 to-purple-600 text-white text-[10px] font-bold px-3 py-1 rounded-full shadow-lg">
+                                <i class="fa-solid fa-list mr-1"></i>สารบัญ 2
+                            </div>
+                            <div class="relative overflow-hidden bg-gradient-to-br from-purple-50 to-gray-50 p-3">
+                                <img src="images/contents/3.png" alt="สารบัญ หน้า 2"
+                                    class="w-full h-auto rounded-xl shadow-sm group-hover:scale-105 transition duration-500">
+                                <div
+                                    class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition duration-300 rounded-xl flex items-center justify-center">
+                                    <i
+                                        class="fa-solid fa-magnifying-glass-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition duration-300 drop-shadow-lg"></i>
+                                </div>
+                            </div>
+                            <div class="p-3 text-center border-t border-gray-50">
+                                <p class="text-xs font-bold text-gray-700">📄 บทที่ 3-4</p>
+                                <p class="text-[10px] text-gray-400 mt-0.5">LINE Chatbot, Webhook, Node</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contents Page 3 -->
+                    <div class="contents-card snap-center flex-shrink-0 w-[220px] md:w-auto group cursor-pointer"
+                        onclick="openLightbox('images/contents/4.png')">
+                        <div
+                            class="relative bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden hover:shadow-2xl hover:-translate-y-2 transition-all duration-500">
+                            <div
+                                class="absolute top-3 left-3 z-10 bg-gradient-to-r from-orange-500 to-red-500 text-white text-[10px] font-bold px-3 py-1 rounded-full shadow-lg">
+                                <i class="fa-solid fa-list mr-1"></i>สารบัญ 3
+                            </div>
+                            <div class="relative overflow-hidden bg-gradient-to-br from-orange-50 to-gray-50 p-3">
+                                <img src="images/contents/4.png" alt="สารบัญ หน้า 3"
+                                    class="w-full h-auto rounded-xl shadow-sm group-hover:scale-105 transition duration-500">
+                                <div
+                                    class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition duration-300 rounded-xl flex items-center justify-center">
+                                    <i
+                                        class="fa-solid fa-magnifying-glass-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition duration-300 drop-shadow-lg"></i>
+                                </div>
+                            </div>
+                            <div class="p-3 text-center border-t border-gray-50">
+                                <p class="text-xs font-bold text-gray-700">📄 Workshop 1-2 & ภาคผนวก</p>
+                                <p class="text-[10px] text-gray-400 mt-0.5">บัญชี AI, ร้านค้า, Self-host</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contents Page 4 -->
+                    <div class="contents-card snap-center flex-shrink-0 w-[220px] md:w-auto group cursor-pointer"
+                        onclick="openLightbox('images/contents/5.png')">
+                        <div
+                            class="relative bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden hover:shadow-2xl hover:-translate-y-2 transition-all duration-500">
+                            <div
+                                class="absolute top-3 left-3 z-10 bg-gradient-to-r from-pink-500 to-rose-500 text-white text-[10px] font-bold px-3 py-1 rounded-full shadow-lg">
+                                <i class="fa-solid fa-list mr-1"></i>สารบัญ 4
+                            </div>
+                            <div class="relative overflow-hidden bg-gradient-to-br from-pink-50 to-gray-50 p-3">
+                                <img src="images/contents/5.png" alt="สารบัญ หน้า 4"
+                                    class="w-full h-auto rounded-xl shadow-sm group-hover:scale-105 transition duration-500">
+                                <div
+                                    class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition duration-300 rounded-xl flex items-center justify-center">
+                                    <i
+                                        class="fa-solid fa-magnifying-glass-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition duration-300 drop-shadow-lg"></i>
+                                </div>
+                            </div>
+                            <div class="p-3 text-center border-t border-gray-50">
+                                <p class="text-xs font-bold text-gray-700">📄 ภาคผนวก (ต่อ)</p>
+                                <p class="text-[10px] text-gray-400 mt-0.5">LINE Account, Webhook, Flex Message</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats bar -->
+            <div class="mt-10 bg-gradient-to-r from-gray-900 to-gray-800 rounded-2xl p-6 shadow-xl">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center text-white">
+                    <div class="p-3">
+                        <div class="text-2xl md:text-3xl font-extrabold text-primary mb-1">297+</div>
+                        <div class="text-xs text-gray-400 font-medium">หน้าเนื้อหา</div>
+                    </div>
+                    <div class="p-3">
+                        <div class="text-2xl md:text-3xl font-extrabold text-secondary mb-1">5</div>
+                        <div class="text-xs text-gray-400 font-medium">บทเรียนหลัก</div>
+                    </div>
+                    <div class="p-3">
+                        <div class="text-2xl md:text-3xl font-extrabold text-yellow-400 mb-1">2</div>
+                        <div class="text-xs text-gray-400 font-medium">Workshop ปฏิบัติ</div>
+                    </div>
+                    <div class="p-3">
+                        <div class="text-2xl md:text-3xl font-extrabold text-blue-400 mb-1">∞</div>
+                        <div class="text-xs text-gray-400 font-medium">Workflow Template</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA -->
         </div>
-        <div class="grid md:grid-cols-2 gap-8">
-            <div class="bg-gray-50 p-6 rounded-xl shadow-sm border border-gray-100 flex gap-4 items-start hover:shadow-md transition">
-                <div class="flex-shrink-0 w-12 h-12 bg-green-100 rounded-full flex items-center justify-center text-primary text-xl"><i class="fa-solid fa-network-wired"></i></div>
-                <div><h4 class="font-bold text-lg mb-1">1. เข้าใจโครงสร้าง API & Webhook ทะลุปรุโปร่ง</h4><p class="text-gray-600 text-sm">ปูพื้นฐานตั้งแต่ศูนย์ อธิบายภาษาเทคนิคให้กลายเป็นภาษาคน</p></div>
-            </div>
-            <div class="bg-gray-50 p-6 rounded-xl shadow-sm border border-gray-100 flex gap-4 items-start hover:shadow-md transition">
-                <div class="flex-shrink-0 w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center text-secondary text-xl"><i class="fa-solid fa-code-branch"></i></div>
-                <div><h4 class="font-bold text-lg mb-1">2. เจาะลึก n8n แบบ Step-by-Step</h4><p class="text-gray-600 text-sm">สอนใช้งาน n8n สร้าง Workflow Automation ไม่ต้องง้อโค้ดซับซ้อน</p></div>
-            </div>
-            <div class="bg-gray-50 p-6 rounded-xl shadow-sm border border-gray-100 flex gap-4 items-start hover:shadow-md transition">
-                <div class="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-blue-500 text-xl"><i class="fa-solid fa-robot"></i></div>
-                <div><h4 class="font-bold text-lg mb-1">3. สร้าง AI Agent ส่วนตัวใน LINE</h4><p class="text-gray-600 text-sm">นำ AI (Gemini) มาช่วยจับเจตนาประโยค (Intent) ให้บอทฉลาดวิเคราะห์ได้</p></div>
-            </div>
-            <div class="bg-gray-50 p-6 rounded-xl shadow-sm border border-gray-100 flex gap-4 items-start hover:shadow-md transition">
-                <div class="flex-shrink-0 w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center text-purple-600 text-xl"><i class="fa-solid fa-file-invoice-dollar"></i></div>
-                <div><h4 class="font-bold text-lg mb-1">4. Workshop 1: ระบบบัญชีรับ-จ่าย AI</h4><p class="text-gray-600 text-sm">แค่พิมพ์คุยเหมือนเพื่อน AI ลงบัญชี แยกหมวดหมู่ สรุปยอดลง Google Sheets</p></div>
-            </div>
-            <div class="bg-gray-50 p-6 rounded-xl shadow-sm border border-gray-100 flex gap-4 items-start hover:shadow-md transition">
-                <div class="flex-shrink-0 w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center text-pink-600 text-xl"><i class="fa-solid fa-store"></i></div>
-                <div><h4 class="font-bold text-lg mb-1">5. Workshop 2: ระบบร้านค้า & บัตรสมาชิก</h4><p class="text-gray-600 text-sm">ทำระบบลงทะเบียนอัตโนมัติ สุ่มแสดงสินค้า เปลี่ยน Rich Menu เมื่อสมัครเสร็จ</p></div>
-            </div>
-            <div class="bg-gray-50 p-6 rounded-xl shadow-sm border border-gray-100 flex gap-4 items-start hover:shadow-md transition">
-                <div class="flex-shrink-0 w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center text-yellow-600 text-xl"><i class="fa-solid fa-download"></i></div>
-                <div><h4 class="font-bold text-lg mb-1">6. มี Workflow สำเร็จรูปให้ Import ทันที</h4><p class="text-gray-600 text-sm">มีไฟล์ Workflow ที่สร้างเสร็จแล้วให้ Import เข้า n8n ไปใช้งานได้ทันที</p></div>
-            </div>
-        </div>
-    </div>
-</section>
-<section class="py-12 bg-white">
+    </section>
+    <section class="py-12 bg-white">
         <div class="max-w-5xl mx-auto px-4">
             <div class="text-center mb-8">
-                <h2 class="text-2xl md:text-3xl font-bold mb-2">ภาพรวมฟีเจอร์และประโยชน์ที่คุณจะได้รับจากหนังสือเล่มนี้</h2>
+                <h2 class="text-2xl md:text-3xl font-bold mb-2">ภาพรวมฟีเจอร์และประโยชน์ที่คุณจะได้รับจากหนังสือเล่มนี้
+                </h2>
                 <p class="text-gray-500 text-sm"></p>
             </div>
-            <div class="relative group cursor-pointer rounded-2xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-xl transition duration-300" onclick="openLightbox('images/nblm-summary.jpg')">
+            <div class="relative group cursor-pointer rounded-2xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-xl transition duration-300"
+                onclick="openLightbox('images/nblm-summary.jpg')">
                 <!-- แก้ไข URL รูป Infographic ตรงนี้ -->
-                <img src="images/cover2.png" alt="NotebookLM Infographic" class="w-full h-auto object-cover transform group-hover:scale-[1.01] transition duration-500">
-                
+                <img src="images/cover2.png" alt="NotebookLM Infographic"
+                    class="w-full h-auto object-cover transform group-hover:scale-[1.01] transition duration-500">
+
                 <!-- Click Hint Overlay -->
-                <div class="absolute bottom-4 right-4 bg-black/60 text-white px-4 py-2 rounded-full text-sm font-semibold opacity-80 group-hover:opacity-100 transition flex items-center">
+                <div
+                    class="absolute bottom-4 right-4 bg-black/60 text-white px-4 py-2 rounded-full text-sm font-semibold opacity-80 group-hover:opacity-100 transition flex items-center">
                     <i class="fa-solid fa-expand mr-2"></i> คลิกเพื่อดูภาพขยาย
                 </div>
             </div>
         </div>
-</section>
+    </section>
 
-<!-- ========== SCREENSHOT PREVIEW: WORKFLOW & LINE APP ========== -->
-<section id="screenshots" class="py-20 bg-gradient-to-b from-white to-gray-50">
-    <div class="max-w-6xl mx-auto px-4">
-        <div class="text-center mb-14">
-            <span class="inline-block bg-blue-100 text-blue-600 px-4 py-1 rounded-full text-sm font-bold mb-4"><i class="fa-solid fa-images mr-2"></i>ตัวอย่างหน้าจอจริง</span>
-            <h2 class="text-3xl md:text-4xl font-bold mb-3">ตัวอย่าง Workflow & หน้าจอ LINE APP</h2>
-            <p class="text-gray-500 max-w-2xl mx-auto">ดูตัวอย่าง Workflow ที่คุณจะได้เรียนรู้และสร้างเอง พร้อมหน้าจอการใช้งานจริงบน LINE</p>
-        </div>
+    <!-- ========== SCREENSHOT PREVIEW: WORKFLOW & LINE APP ========== -->
+    <section id="screenshots" class="py-20 bg-gradient-to-b from-white to-gray-50">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-14">
+                <span class="inline-block bg-blue-100 text-blue-600 px-4 py-1 rounded-full text-sm font-bold mb-4"><i
+                        class="fa-solid fa-images mr-2"></i>ตัวอย่างหน้าจอจริง</span>
+                <h2 class="text-3xl md:text-4xl font-bold mb-3">ตัวอย่าง Workflow & หน้าจอ LINE APP</h2>
+                <p class="text-gray-500 max-w-2xl mx-auto">ดูตัวอย่าง Workflow ที่คุณจะได้เรียนรู้และสร้างเอง
+                    พร้อมหน้าจอการใช้งานจริงบน LINE</p>
+            </div>
 
-        <!-- === LINE APP Screenshots === -->
-        <div>
-            <div class="flex items-center gap-3 mb-6">
-                <div class="w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center"><i class="fa-brands fa-line text-primary text-xl"></i></div>
-                <h3 class="text-xl font-bold text-gray-800">📱 ตัวอย่างหน้าจอ LINE APP</h3>
+            <!-- === LINE APP Screenshots === -->
+            <div>
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center"><i
+                            class="fa-brands fa-line text-primary text-xl"></i></div>
+                    <h3 class="text-xl font-bold text-gray-800">📱 ตัวอย่างหน้าจอ LINE APP</h3>
+                </div>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <!-- LINE Card 1 -->
+                    <div class="group bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition duration-300 cursor-pointer"
+                        onclick="openLightbox('images/workshop01/wk01-1.jpg')">
+                        <div class="bg-gray-50 overflow-hidden flex items-center justify-center p-2">
+                            <img src="images/workshop01/wk01-1.jpg" alt="LINE APP AI Chatbot"
+                                class="max-w-full h-auto object-contain group-hover:scale-105 transition duration-500 rounded-lg"
+                                onerror="this.parentElement.innerHTML='<div class=\'w-full py-20 flex flex-col items-center justify-center text-gray-400\'><i class=\'fa-solid fa-mobile-screen text-5xl mb-2\'></i><span class=\'text-sm\'>เพิ่มรูปภาพ</span></div>'">
+                        </div>
+                        <div class="p-4">
+                            <h4 class="font-bold text-sm text-gray-800 mb-1">AI Chatbot ตอบอัตโนมัติ</h4>
+                            <p class="text-xs text-gray-500">บอทวิเคราะห์เจตนาลูกค้าและตอบกลับอัจฉริยะ</p>
+                        </div>
+                    </div>
+                    <!-- LINE Card 2 -->
+                    <div class="group bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition duration-300 cursor-pointer"
+                        onclick="openLightbox('images/workshop01/wk01-2.jpg')">
+                        <div class="bg-gray-50 overflow-hidden flex items-center justify-center p-2">
+                            <img src="images/workshop01/wk01-2.jpg" alt="LINE APP ระบบบัญชี"
+                                class="max-w-full h-auto object-contain group-hover:scale-105 transition duration-500 rounded-lg"
+                                onerror="this.parentElement.innerHTML='<div class=\'w-full py-20 flex flex-col items-center justify-center text-gray-400\'><i class=\'fa-solid fa-mobile-screen text-5xl mb-2\'></i><span class=\'text-sm\'>เพิ่มรูปภาพ</span></div>'">
+                        </div>
+                        <div class="p-4">
+                            <h4 class="font-bold text-sm text-gray-800 mb-1">ระบบบัญชีรับ-จ่ายผ่าน LINE</h4>
+                            <p class="text-xs text-gray-500">พิมพ์รายรับ-รายจ่าย AI แยกหมวดหมู่ให้อัตโนมัติ</p>
+                        </div>
+                    </div>
+                    <!-- LINE Card 3 -->
+                    <div class="group bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition duration-300 cursor-pointer"
+                        onclick="openLightbox('images/workshop01/wk01-3.jpg')">
+                        <div class="bg-gray-50 overflow-hidden flex items-center justify-center p-2">
+                            <img src="images/workshop01/wk01-3.jpg" alt="LINE APP บัตรสมาชิก"
+                                class="max-w-full h-auto object-contain group-hover:scale-105 transition duration-500 rounded-lg"
+                                onerror="this.parentElement.innerHTML='<div class=\'w-full py-20 flex flex-col items-center justify-center text-gray-400\'><i class=\'fa-solid fa-mobile-screen text-5xl mb-2\'></i><span class=\'text-sm\'>เพิ่มรูปภาพ</span></div>'">
+                        </div>
+                        <div class="p-4">
+                            <h4 class="font-bold text-sm text-gray-800 mb-1">ระบบร้านค้า & บัตรสมาชิก</h4>
+                            <p class="text-xs text-gray-500">Flex Message แสดงข้อมูลสมาชิก สินค้าแนะนำ</p>
+                        </div>
+                    </div>
+                    <!-- LINE Card 4 -->
+                    <div class="group bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition duration-300 cursor-pointer"
+                        onclick="openLightbox('images/workshop02/wk02-1.jpg')">
+                        <div class="bg-gray-50 overflow-hidden flex items-center justify-center p-2">
+                            <img src="images/workshop02/wk02-1.jpg" alt="LINE APP บัตรสมาชิก"
+                                class="max-w-full h-auto object-contain group-hover:scale-105 transition duration-500 rounded-lg"
+                                onerror="this.parentElement.innerHTML='<div class=\'w-full py-20 flex flex-col items-center justify-center text-gray-400\'><i class=\'fa-solid fa-mobile-screen text-5xl mb-2\'></i><span class=\'text-sm\'>เพิ่มรูปภาพ</span></div>'">
+                        </div>
+                        <div class="p-4">
+                            <h4 class="font-bold text-sm text-gray-800 mb-1">ระบบร้านค้า & บัตรสมาชิก</h4>
+                            <p class="text-xs text-gray-500">Flex Message แสดงข้อมูลสมาชิก สินค้าแนะนำ</p>
+                        </div>
+                    </div>
+                    <!-- LINE Card 5 -->
+                    <div class="group bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition duration-300 cursor-pointer"
+                        onclick="openLightbox('images/workshop02/wk02-2.jpg')">
+                        <div class="bg-gray-50 overflow-hidden flex items-center justify-center p-2">
+                            <img src="images/workshop02/wk02-2.jpg" alt="LINE APP บัตรสมาชิก"
+                                class="max-w-full h-auto object-contain group-hover:scale-105 transition duration-500 rounded-lg"
+                                onerror="this.parentElement.innerHTML='<div class=\'w-full py-20 flex flex-col items-center justify-center text-gray-400\'><i class=\'fa-solid fa-mobile-screen text-5xl mb-2\'></i><span class=\'text-sm\'>เพิ่มรูปภาพ</span></div>'">
+                        </div>
+                        <div class="p-4">
+                            <h4 class="font-bold text-sm text-gray-800 mb-1">ระบบร้านค้า & บัตรสมาชิก</h4>
+                            <p class="text-xs text-gray-500">Flex Message แสดงข้อมูลสมาชิก สินค้าแนะนำ</p>
+                        </div>
+                    </div>
+                    <!-- LINE Card 6 -->
+                    <div class="group bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition duration-300 cursor-pointer"
+                        onclick="openLightbox('images/workshop02/wk02-3.jpg')">
+                        <div class="bg-gray-50 overflow-hidden flex items-center justify-center p-2">
+                            <img src="images/workshop02/wk02-3.jpg" alt="LINE APP บัตรสมาชิก"
+                                class="max-w-full h-auto object-contain group-hover:scale-105 transition duration-500 rounded-lg"
+                                onerror="this.parentElement.innerHTML='<div class=\'w-full py-20 flex flex-col items-center justify-center text-gray-400\'><i class=\'fa-solid fa-mobile-screen text-5xl mb-2\'></i><span class=\'text-sm\'>เพิ่มรูปภาพ</span></div>'">
+                        </div>
+                        <div class="p-4">
+                            <h4 class="font-bold text-sm text-gray-800 mb-1">ระบบร้านค้า & บัตรสมาชิก</h4>
+                            <p class="text-xs text-gray-500">Flex Message แสดงข้อมูลสมาชิก สินค้าแนะนำ</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="grid md:grid-cols-3 gap-6">
-                <!-- LINE Card 1 -->
-                <div class="group bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition duration-300 cursor-pointer" onclick="openLightbox('images/workshop01/wk01-1.jpg')">
-                    <div class="bg-gray-50 overflow-hidden flex items-center justify-center p-2">
-                        <img src="images/workshop01/wk01-1.jpg" alt="LINE APP AI Chatbot" class="max-w-full h-auto object-contain group-hover:scale-105 transition duration-500 rounded-lg" onerror="this.parentElement.innerHTML='<div class=\'w-full py-20 flex flex-col items-center justify-center text-gray-400\'><i class=\'fa-solid fa-mobile-screen text-5xl mb-2\'></i><span class=\'text-sm\'>เพิ่มรูปภาพ</span></div>'">
-                    </div>
-                    <div class="p-4">
-                        <h4 class="font-bold text-sm text-gray-800 mb-1">AI Chatbot ตอบอัตโนมัติ</h4>
-                        <p class="text-xs text-gray-500">บอทวิเคราะห์เจตนาลูกค้าและตอบกลับอัจฉริยะ</p>
-                    </div>
-                </div>
-                <!-- LINE Card 2 -->
-                <div class="group bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition duration-300 cursor-pointer" onclick="openLightbox('images/workshop01/wk01-2.jpg')">
-                    <div class="bg-gray-50 overflow-hidden flex items-center justify-center p-2">
-                        <img src="images/workshop01/wk01-2.jpg" alt="LINE APP ระบบบัญชี" class="max-w-full h-auto object-contain group-hover:scale-105 transition duration-500 rounded-lg" onerror="this.parentElement.innerHTML='<div class=\'w-full py-20 flex flex-col items-center justify-center text-gray-400\'><i class=\'fa-solid fa-mobile-screen text-5xl mb-2\'></i><span class=\'text-sm\'>เพิ่มรูปภาพ</span></div>'">
-                    </div>
-                    <div class="p-4">
-                        <h4 class="font-bold text-sm text-gray-800 mb-1">ระบบบัญชีรับ-จ่ายผ่าน LINE</h4>
-                        <p class="text-xs text-gray-500">พิมพ์รายรับ-รายจ่าย AI แยกหมวดหมู่ให้อัตโนมัติ</p>
-                    </div>
-                </div>
-                <!-- LINE Card 3 -->
-                <div class="group bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition duration-300 cursor-pointer" onclick="openLightbox('images/workshop01/wk01-3.jpg')">
-                    <div class="bg-gray-50 overflow-hidden flex items-center justify-center p-2">
-                        <img src="images/workshop01/wk01-3.jpg" alt="LINE APP บัตรสมาชิก" class="max-w-full h-auto object-contain group-hover:scale-105 transition duration-500 rounded-lg" onerror="this.parentElement.innerHTML='<div class=\'w-full py-20 flex flex-col items-center justify-center text-gray-400\'><i class=\'fa-solid fa-mobile-screen text-5xl mb-2\'></i><span class=\'text-sm\'>เพิ่มรูปภาพ</span></div>'">
-                    </div>
-                    <div class="p-4">
-                        <h4 class="font-bold text-sm text-gray-800 mb-1">ระบบร้านค้า & บัตรสมาชิก</h4>
-                        <p class="text-xs text-gray-500">Flex Message แสดงข้อมูลสมาชิก สินค้าแนะนำ</p>
-                    </div>
-                </div>
-                <!-- LINE Card 4 -->
-                <div class="group bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition duration-300 cursor-pointer" onclick="openLightbox('images/workshop02/wk02-1.jpg')">
-                    <div class="bg-gray-50 overflow-hidden flex items-center justify-center p-2">
-                        <img src="images/workshop02/wk02-1.jpg" alt="LINE APP บัตรสมาชิก" class="max-w-full h-auto object-contain group-hover:scale-105 transition duration-500 rounded-lg" onerror="this.parentElement.innerHTML='<div class=\'w-full py-20 flex flex-col items-center justify-center text-gray-400\'><i class=\'fa-solid fa-mobile-screen text-5xl mb-2\'></i><span class=\'text-sm\'>เพิ่มรูปภาพ</span></div>'">
-                    </div>
-                    <div class="p-4">
-                        <h4 class="font-bold text-sm text-gray-800 mb-1">ระบบร้านค้า & บัตรสมาชิก</h4>
-                        <p class="text-xs text-gray-500">Flex Message แสดงข้อมูลสมาชิก สินค้าแนะนำ</p>
-                    </div>
-                </div>
-                <!-- LINE Card 5 -->
-                <div class="group bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition duration-300 cursor-pointer" onclick="openLightbox('images/workshop02/wk02-2.jpg')">
-                    <div class="bg-gray-50 overflow-hidden flex items-center justify-center p-2">
-                        <img src="images/workshop02/wk02-2.jpg" alt="LINE APP บัตรสมาชิก" class="max-w-full h-auto object-contain group-hover:scale-105 transition duration-500 rounded-lg" onerror="this.parentElement.innerHTML='<div class=\'w-full py-20 flex flex-col items-center justify-center text-gray-400\'><i class=\'fa-solid fa-mobile-screen text-5xl mb-2\'></i><span class=\'text-sm\'>เพิ่มรูปภาพ</span></div>'">
-                    </div>
-                    <div class="p-4">
-                        <h4 class="font-bold text-sm text-gray-800 mb-1">ระบบร้านค้า & บัตรสมาชิก</h4>
-                        <p class="text-xs text-gray-500">Flex Message แสดงข้อมูลสมาชิก สินค้าแนะนำ</p>
-                    </div>
-                </div>
-                <!-- LINE Card 6 -->
-                <div class="group bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition duration-300 cursor-pointer" onclick="openLightbox('images/workshop02/wk02-3.jpg')">
-                    <div class="bg-gray-50 overflow-hidden flex items-center justify-center p-2">
-                        <img src="images/workshop02/wk02-3.jpg" alt="LINE APP บัตรสมาชิก" class="max-w-full h-auto object-contain group-hover:scale-105 transition duration-500 rounded-lg" onerror="this.parentElement.innerHTML='<div class=\'w-full py-20 flex flex-col items-center justify-center text-gray-400\'><i class=\'fa-solid fa-mobile-screen text-5xl mb-2\'></i><span class=\'text-sm\'>เพิ่มรูปภาพ</span></div>'">
-                    </div>
-                    <div class="p-4">
-                        <h4 class="font-bold text-sm text-gray-800 mb-1">ระบบร้านค้า & บัตรสมาชิก</h4>
-                        <p class="text-xs text-gray-500">Flex Message แสดงข้อมูลสมาชิก สินค้าแนะนำ</p>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <!-- CTA -->
-        <div class="text-center mt-12">
-            <p class="text-gray-500 mb-4 text-sm"><i class="fa-solid fa-circle-info mr-1"></i> นี่เป็นเพียงตัวอย่างบางส่วน — เนื้อหาในหนังสือมีมากกว่านี้!</p>
-            <a href="#pricing" class="inline-flex items-center gap-2 bg-gradient-to-r from-primary to-secondary text-white font-bold py-3 px-8 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition duration-300">
-                <i class="fa-solid fa-cart-shopping"></i> สนใจสั่งซื้อเลย
-            </a>
-        </div>
-    </div>
-</section>
-<!-- ========== TABLE OF CONTENTS (สารบัญ) ========== -->
-<section id="toc" class="py-20 bg-gradient-to-b from-gray-50 to-white">
-    <div class="max-w-4xl mx-auto px-4">
-        <div class="text-center mb-12">
-            <span class="inline-block bg-primary/10 text-primary px-4 py-1 rounded-full text-sm font-bold mb-4"><i class="fa-solid fa-book-open mr-2"></i>สารบัญ</span>
-            <h2 class="text-3xl md:text-4xl font-bold mb-3">เนื้อหาภายในหนังสือ</h2>
-            <p class="text-gray-500">อัดแน่น 5 บทเรียนหลัก + 2 เวิร์กชอปเชิงปฏิบัติ</p>
-        </div>
-
-        <div class="space-y-4" id="accordion-container">
-            <!-- Chapter 1 -->
-            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition">
-                <button onclick="toggleAccordion(this)" class="accordion-btn w-full flex items-center justify-between p-5 text-left focus:outline-none group">
-                    <div class="flex items-center gap-4">
-                        <span class="flex-shrink-0 w-12 h-12 rounded-xl bg-green-100 text-primary font-bold flex items-center justify-center text-lg shadow-sm">01</span>
-                        <div><h3 class="font-bold text-lg group-hover:text-primary transition">พื้นฐาน API & Webhook</h3><p class="text-sm text-gray-500">เข้าใจการสื่อสารระหว่างระบบ</p></div>
-                    </div>
-                    <i class="fa-solid fa-chevron-down accordion-icon text-gray-400 text-lg"></i>
-                </button>
-                <div class="accordion-content px-5 pb-5">
-                    <ul class="space-y-2 pl-16 text-gray-600 text-sm border-t pt-4">
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-check-circle text-primary mt-0.5"></i> API คืออะไร? ทำไมถึงต้องใช้</li>
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-check-circle text-primary mt-0.5"></i> HTTP Methods: GET, POST, PUT, DELETE</li>
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-check-circle text-primary mt-0.5"></i> Webhook คืออะไร? ต่างจาก API ยังไง</li>
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-check-circle text-primary mt-0.5"></i> Request & Response: Header, Body, Status Code</li>
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-check-circle text-primary mt-0.5"></i> ทดลองเรียก API ด้วย Postman</li>
-                    </ul>
-                </div>
-            </div>
-            <!-- Chapter 2 -->
-            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition">
-                <button onclick="toggleAccordion(this)" class="accordion-btn w-full flex items-center justify-between p-5 text-left focus:outline-none group">
-                    <div class="flex items-center gap-4">
-                        <span class="flex-shrink-0 w-12 h-12 rounded-xl bg-orange-100 text-secondary font-bold flex items-center justify-center text-lg shadow-sm">02</span>
-                        <div><h3 class="font-bold text-lg group-hover:text-secondary transition">รู้จัก n8n — เครื่องมือ Automation</h3><p class="text-sm text-gray-500">ติดตั้งและเริ่มใช้งาน n8n</p></div>
-                    </div>
-                    <i class="fa-solid fa-chevron-down accordion-icon text-gray-400 text-lg"></i>
-                </button>
-                <div class="accordion-content px-5 pb-5">
-                    <ul class="space-y-2 pl-16 text-gray-600 text-sm border-t pt-4">
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-check-circle text-secondary mt-0.5"></i> n8n คืออะไร? ทำไมถึงเลือกใช้</li>
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-check-circle text-secondary mt-0.5"></i> การติดตั้ง n8n แบบ Self-host (Docker)</li>
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-check-circle text-secondary mt-0.5"></i> แนะนำ UI, Node, Workflow เบื้องต้น</li>
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-check-circle text-secondary mt-0.5"></i> สร้าง Workflow แรก: Hello World</li>
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-check-circle text-secondary mt-0.5"></i> การ Debug และจัดการ Error</li>
-                    </ul>
-                </div>
-            </div>
-            <!-- Chapter 3 -->
-            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition">
-                <button onclick="toggleAccordion(this)" class="accordion-btn w-full flex items-center justify-between p-5 text-left focus:outline-none group">
-                    <div class="flex items-center gap-4">
-                        <span class="flex-shrink-0 w-12 h-12 rounded-xl bg-green-100 text-primary font-bold flex items-center justify-center text-lg shadow-sm">03</span>
-                        <div><h3 class="font-bold text-lg group-hover:text-primary transition">เชื่อมต่อ LINE OA กับ n8n</h3><p class="text-sm text-gray-500">สร้าง Chatbot ที่ทำงานจริง</p></div>
-                    </div>
-                    <i class="fa-solid fa-chevron-down accordion-icon text-gray-400 text-lg"></i>
-                </button>
-                <div class="accordion-content px-5 pb-5">
-                    <ul class="space-y-2 pl-16 text-gray-600 text-sm border-t pt-4">
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-check-circle text-primary mt-0.5"></i> สร้าง LINE OA และ Messaging API Channel</li>
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-check-circle text-primary mt-0.5"></i> ตั้งค่า Webhook เชื่อม LINE กับ n8n</li>
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-check-circle text-primary mt-0.5"></i> รับ-ส่งข้อความอัตโนมัติ (Text, Flex Message)</li>
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-check-circle text-primary mt-0.5"></i> จัดการ Rich Menu แบบ Dynamic</li>
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-check-circle text-primary mt-0.5"></i> การจัดการ Event ต่างๆ จาก LINE</li>
-                    </ul>
-                </div>
-            </div>
-            <!-- Chapter 4 -->
-            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition">
-                <button onclick="toggleAccordion(this)" class="accordion-btn w-full flex items-center justify-between p-5 text-left focus:outline-none group">
-                    <div class="flex items-center gap-4">
-                        <span class="flex-shrink-0 w-12 h-12 rounded-xl bg-blue-100 text-blue-500 font-bold flex items-center justify-center text-lg shadow-sm">04</span>
-                        <div><h3 class="font-bold text-lg group-hover:text-blue-500 transition">สร้าง AI Agent ด้วย Gemini</h3><p class="text-sm text-gray-500">ทำให้บอทฉลาดวิเคราะห์เจตนาลูกค้า</p></div>
-                    </div>
-                    <i class="fa-solid fa-chevron-down accordion-icon text-gray-400 text-lg"></i>
-                </button>
-                <div class="accordion-content px-5 pb-5">
-                    <ul class="space-y-2 pl-16 text-gray-600 text-sm border-t pt-4">
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-check-circle text-blue-500 mt-0.5"></i> AI Agent คืออะไร? หลักการทำงาน</li>
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-check-circle text-blue-500 mt-0.5"></i> เชื่อมต่อ Gemini API กับ n8n</li>
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-check-circle text-blue-500 mt-0.5"></i> Intent Classification: จับเจตนาจากข้อความ</li>
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-check-circle text-blue-500 mt-0.5"></i> Prompt Engineering สำหรับ Chatbot</li>
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-check-circle text-blue-500 mt-0.5"></i> Context Memory: ให้บอทจำบทสนทนาได้</li>
-                    </ul>
-                </div>
-            </div>
-            <!-- Chapter 5 -->
-            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition">
-                <button onclick="toggleAccordion(this)" class="accordion-btn w-full flex items-center justify-between p-5 text-left focus:outline-none group">
-                    <div class="flex items-center gap-4">
-                        <span class="flex-shrink-0 w-12 h-12 rounded-xl bg-emerald-100 text-emerald-600 font-bold flex items-center justify-center text-lg shadow-sm">05</span>
-                        <div><h3 class="font-bold text-lg group-hover:text-emerald-600 transition">เชื่อมต่อกับ Google Sheets</h3><p class="text-sm text-gray-500">บันทึกข้อมูลอัตโนมัติแบบ Real-time</p></div>
-                    </div>
-                    <i class="fa-solid fa-chevron-down accordion-icon text-gray-400 text-lg"></i>
-                </button>
-                <div class="accordion-content px-5 pb-5">
-                    <ul class="space-y-2 pl-16 text-gray-600 text-sm border-t pt-4">
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-check-circle text-emerald-500 mt-0.5"></i> ตั้งค่า Google Service Account</li>
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-check-circle text-emerald-500 mt-0.5"></i> อ่าน-เขียนข้อมูลจาก Google Sheets ผ่าน n8n</li>
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-check-circle text-emerald-500 mt-0.5"></i> สร้างระบบลงทะเบียนลูกค้าอัตโนมัติ</li>
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-check-circle text-emerald-500 mt-0.5"></i> สร้างระบบค้นหาข้อมูลจาก Sheets</li>
-                    </ul>
-                </div>
-            </div>
-            <!-- Workshop 1 -->
-            <div class="bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl shadow-sm border border-purple-100 overflow-hidden hover:shadow-md transition">
-                <button onclick="toggleAccordion(this)" class="accordion-btn w-full flex items-center justify-between p-5 text-left focus:outline-none group">
-                    <div class="flex items-center gap-4">
-                        <span class="flex-shrink-0 w-12 h-12 rounded-xl bg-purple-200 text-purple-700 font-bold flex items-center justify-center text-sm shadow-sm"><i class="fa-solid fa-flask"></i></span>
-                        <div><h3 class="font-bold text-lg group-hover:text-purple-600 transition">Workshop 1: ระบบบัญชีรับ-จ่าย AI</h3><p class="text-sm text-gray-500">พิมพ์คุยเหมือนเพื่อน ให้ AI ลงบัญชีให้</p></div>
-                    </div>
-                    <i class="fa-solid fa-chevron-down accordion-icon text-gray-400 text-lg"></i>
-                </button>
-                <div class="accordion-content px-5 pb-5">
-                    <ul class="space-y-2 pl-16 text-gray-600 text-sm border-t border-purple-100 pt-4">
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-check-circle text-purple-500 mt-0.5"></i> ออกแบบ Workflow บันทึกรายรับ-รายจ่าย</li>
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-check-circle text-purple-500 mt-0.5"></i> ใช้ AI แยกหมวดหมู่อัตโนมัติ</li>
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-check-circle text-purple-500 mt-0.5"></i> สรุปยอดเงินคงเหลือลง Google Sheets</li>
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-check-circle text-purple-500 mt-0.5"></i> ส่งรายงานสรุปกลับทาง LINE</li>
-                    </ul>
-                </div>
-            </div>
-            <!-- Workshop 2 -->
-            <div class="bg-gradient-to-r from-pink-50 to-orange-50 rounded-2xl shadow-sm border border-pink-100 overflow-hidden hover:shadow-md transition">
-                <button onclick="toggleAccordion(this)" class="accordion-btn w-full flex items-center justify-between p-5 text-left focus:outline-none group">
-                    <div class="flex items-center gap-4">
-                        <span class="flex-shrink-0 w-12 h-12 rounded-xl bg-pink-200 text-pink-700 font-bold flex items-center justify-center text-sm shadow-sm"><i class="fa-solid fa-flask"></i></span>
-                        <div><h3 class="font-bold text-lg group-hover:text-pink-600 transition">Workshop 2: ระบบร้านค้า & บัตรสมาชิก</h3><p class="text-sm text-gray-500">สร้างระบบร้านค้าอัตโนมัติครบวงจร</p></div>
-                    </div>
-                    <i class="fa-solid fa-chevron-down accordion-icon text-gray-400 text-lg"></i>
-                </button>
-                <div class="accordion-content px-5 pb-5">
-                    <ul class="space-y-2 pl-16 text-gray-600 text-sm border-t border-pink-100 pt-4">
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-check-circle text-pink-500 mt-0.5"></i> ระบบลงทะเบียนสมาชิกอัตโนมัติ</li>
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-check-circle text-pink-500 mt-0.5"></i> สุ่มแสดงสินค้าแนะนำ</li>
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-check-circle text-pink-500 mt-0.5"></i> เปลี่ยน Rich Menu ตามสถานะสมาชิก</li>
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-check-circle text-pink-500 mt-0.5"></i> ส่ง Flex Message แสดงข้อมูลบัตรสมาชิก</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="text-center mt-10">
-            <a href="#pricing" class="inline-flex items-center gap-2 bg-gradient-to-r from-primary to-secondary text-white font-bold py-3 px-8 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition duration-300">
-                <i class="fa-solid fa-cart-shopping"></i> สั่งซื้อเพื่ออ่านเนื้อหาเต็มทั้งเล่ม
-            </a>
-        </div>
-</div>
-</section>
-
-<!-- ========== CTA BANNER ========== -->
-<section class="py-0">
-    <div class="max-w-6xl mx-auto px-4">
-        <div class="bg-gradient-to-r from-primary to-secondary rounded-2xl p-8 text-white text-center shadow-xl relative overflow-hidden">
-            <div class="relative z-10">
-                <h3 class="text-2xl font-bold mb-4">ทั้งหมดนี้ในราคาเพียง <span class="text-yellow-300 text-4xl">599.-</span></h3>
-                <p class="mb-6 text-green-100">เปลี่ยนงาน 10 ชั่วโมง ให้เสร็จใน 10 วินาที คุ้มค่าที่สุดสำหรับการพัฒนาตัวเอง</p>
-                <a href="#pricing" class="inline-block bg-white text-primary font-bold py-3 px-8 rounded-full shadow-lg hover:bg-gray-100 hover:scale-105 transition duration-300">
-                    <i class="fa-solid fa-cart-shopping mr-2"></i> สั่งซื้อทันที
+            <!-- CTA -->
+            <div class="text-center mt-12">
+                <p class="text-gray-500 mb-4 text-sm"><i class="fa-solid fa-circle-info mr-1"></i>
+                    นี่เป็นเพียงตัวอย่างบางส่วน — เนื้อหาในหนังสือมีมากกว่านี้!</p>
+                <a href="#pricing"
+                    class="inline-flex items-center gap-2 bg-gradient-to-r from-primary to-secondary text-white font-bold py-3 px-8 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition duration-300">
+                    <i class="fa-solid fa-cart-shopping"></i> สนใจสั่งซื้อเลย
                 </a>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- ========== AUTHOR ========== -->
-<section class="py-16 bg-dark text-white text-center">
-    <div class="max-w-4xl mx-auto px-4">
-        <div class="w-28 h-28 bg-white rounded-full mx-auto mb-6 overflow-hidden border-4 border-primary shadow-lg p-1">
-            <img src="images/profile.jpg" alt="Sataphat Denduang Logo" class="w-full h-full object-cover rounded-full">
-        </div>
-        <h3 class="text-2xl font-bold mb-2">เขียนโดย: Sataphat Denduang (นักวิชาการคอมพิวเตอร์และผู้พัฒนาระบบภาครัฐ)</h3>
-        <p class="text-gray-300 mb-10 max-w-2xl mx-auto italic">"จากประสบการณ์ตรงในการสร้างระบบเพื่อลดขั้นตอนซ้ำซ้อนให้องค์กร กลั่นกรองออกมาเป็น E-book เล่มนี้ ที่จะช่วยให้ทุกคนนำเทคนิค Automation สไตล์ LINE Dev ไปสร้างระบบทำแทนคนได้จริง"</p>
-        <div class="flex justify-center">
-            <a href="https://www.facebook.com/profile.php?id=61583084847090" target="_blank" class="bg-gray-800 p-6 rounded-xl border border-gray-700 hover:border-[#1877F2] transition flex flex-col items-center group">
-                <span class="flex items-center gap-2 text-[#1877F2] font-bold mb-4 group-hover:underline text-lg"><i class="fa-brands fa-facebook text-2xl"></i> ติดตามเพจ</span>
-                <div class="bg-white p-2 rounded-lg w-32 h-32 flex items-center justify-center"><img src="images/fb-page.png" alt="Facebook QR" class="w-full h-full object-contain"></div>
-            </a>
-        </div>
-    </div>
-</section>
 
-<!-- ========== BONUS SECTION ========== -->
-<section class="py-16 bg-gradient-to-br from-yellow-50 via-orange-50 to-red-50">
-    <div class="max-w-4xl mx-auto px-4">
-        <div class="text-center mb-10">
-            <span class="inline-block bg-red-500 text-white px-5 py-1.5 rounded-full text-sm font-bold mb-4 animate-bounce-slow shadow-lg"><i class="fa-solid fa-fire mr-2"></i>โปรพิเศษ! เฉพาะสั่งซื้อภายในอาทิตย์นี้</span>
-            <h2 class="text-3xl md:text-4xl font-extrabold mb-3">🎁 ซื้อวันนี้ <span class="gradient-text">แถมฟรี!</span></h2>
-            <p class="text-gray-500">สิทธิพิเศษสำหรับคนที่ตัดสินใจเร็ว ไม่ได้มีทุกวัน!</p>
+    
+    <!-- ========== AUTHOR ========== -->
+    <section class="py-16 bg-dark text-white text-center">
+        <div class="max-w-4xl mx-auto px-4">
+            <div
+                class="w-28 h-28 bg-white rounded-full mx-auto mb-6 overflow-hidden border-4 border-primary shadow-lg p-1">
+                <img src="images/profile.jpg" alt="Sataphat Denduang Logo"
+                    class="w-full h-full object-cover rounded-full">
+            </div>
+            <h3 class="text-2xl font-bold mb-2">เขียนโดย: Sataphat Denduang (นักวิชาการคอมพิวเตอร์และผู้พัฒนาระบบภาครัฐ)
+            </h3>
+            <p class="text-gray-300 mb-10 max-w-2xl mx-auto italic">
+                "จากประสบการณ์ตรงในการสร้างระบบเพื่อลดขั้นตอนซ้ำซ้อนให้องค์กร กลั่นกรองออกมาเป็น E-book เล่มนี้
+                ที่จะช่วยให้ทุกคนนำเทคนิค Automation สไตล์ LINE Dev ไปสร้างระบบทำแทนคนได้จริง"</p>
+            <div class="flex justify-center">
+                <a href="https://www.facebook.com/profile.php?id=61583084847090" target="_blank"
+                    class="bg-gray-800 p-6 rounded-xl border border-gray-700 hover:border-[#1877F2] transition flex flex-col items-center group">
+                    <span class="flex items-center gap-2 text-[#1877F2] font-bold mb-4 group-hover:underline text-lg"><i
+                            class="fa-brands fa-facebook text-2xl"></i> ติดตามเพจ</span>
+                    <div class="bg-white p-2 rounded-lg w-32 h-32 flex items-center justify-center"><img
+                            src="images/fb-page.png" alt="Facebook QR" class="w-full h-full object-contain"></div>
+                </a>
+            </div>
         </div>
+    </section>
 
-        <div class="space-y-5">
-            <!-- Bonus 1 -->
-            <div class="bg-white rounded-2xl p-6 shadow-md border border-orange-100 flex items-start gap-5 hover:shadow-xl hover:-translate-y-0.5 transition duration-300">
-                <div class="flex-shrink-0 w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 text-2xl shadow-sm">
-                    <i class="fa-brands fa-docker"></i>
+    <!-- ========== BONUS SECTION ========== -->
+    <section class="py-16 bg-gradient-to-br from-yellow-50 via-orange-50 to-red-50">
+        <div class="max-w-4xl mx-auto px-4">
+            <div class="text-center mb-10">
+                <span
+                    class="inline-block bg-red-500 text-white px-5 py-1.5 rounded-full text-sm font-bold mb-4 animate-bounce-slow shadow-lg"><i
+                        class="fa-solid fa-fire mr-2"></i>โปรพิเศษ! เฉพาะสั่งซื้อภายในอาทิตย์นี้</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold mb-3">🎁 ซื้อวันนี้ <span
+                        class="gradient-text">แถมฟรี!</span></h2>
+                <p class="text-gray-500">สิทธิพิเศษสำหรับคนที่ตัดสินใจเร็ว ไม่ได้มีทุกวัน!</p>
+            </div>
+
+            <div class="space-y-5">
+                <!-- Bonus 1 -->
+                <div
+                    class="bg-white rounded-2xl p-6 shadow-md border border-orange-100 flex items-start gap-5 hover:shadow-xl hover:-translate-y-0.5 transition duration-300">
+                    <div
+                        class="flex-shrink-0 w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 text-2xl shadow-sm">
+                        <i class="fa-brands fa-docker"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-lg text-gray-800 mb-1">❤️ คู่มือการติดตั้งแบบ Self-host ด้วย Docker
+                        </h4>
+                        <p class="text-gray-500 text-sm">สอนติดตั้ง n8n บนเซิร์ฟเวอร์ของคุณเอง แบบ Step-by-Step
+                            ไม่ต้องพึ่งคลาวด์ ประหยัดค่าใช้จ่ายระยะยาว</p>
+                    </div>
                 </div>
-                <div>
-                    <h4 class="font-bold text-lg text-gray-800 mb-1">❤️ คู่มือการติดตั้งแบบ Self-host ด้วย Docker</h4>
-                    <p class="text-gray-500 text-sm">สอนติดตั้ง n8n บนเซิร์ฟเวอร์ของคุณเอง แบบ Step-by-Step ไม่ต้องพึ่งคลาวด์ ประหยัดค่าใช้จ่ายระยะยาว</p>
+
+                <!-- Bonus 2 -->
+                <div
+                    class="bg-white rounded-2xl p-6 shadow-md border border-orange-100 flex items-start gap-5 hover:shadow-xl hover:-translate-y-0.5 transition duration-300">
+                    <div
+                        class="flex-shrink-0 w-14 h-14 bg-green-100 rounded-xl flex items-center justify-center text-primary text-2xl shadow-sm">
+                        <i class="fa-solid fa-headset"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-lg text-gray-800 mb-1">❤️ ถามได้เลย! เข็นจนกว่าคุณจะทำเป็น</h4>
+                        <p class="text-gray-500 text-sm">อ่านแล้วไม่เข้าใจ ติดตรงไหน สามารถถามผมได้เลย
+                            ผมเข็นจนกว่าคุณจะทำเป็น ไม่ทิ้งกันกลางทาง!</p>
+                    </div>
+                </div>
+
+                <!-- Bonus 3 -->
+                <div
+                    class="bg-white rounded-2xl p-6 shadow-md border border-orange-100 flex items-start gap-5 hover:shadow-xl hover:-translate-y-0.5 transition duration-300">
+                    <div
+                        class="flex-shrink-0 w-14 h-14 bg-purple-100 rounded-xl flex items-center justify-center text-purple-600 text-2xl shadow-sm">
+                        <i class="fa-solid fa-gift"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-lg text-gray-800 mb-1">❤️ แถม Template Workflow จากกลุ่มทำไลน์
+                            Community ให้ต่อเนื่อง</h4>
+                        <p class="text-gray-500 text-sm">ยังไม่หมด! ผมแถม Template ต่างๆ ของ Workflow
+                            ที่ผมโพสลงไปในเพจให้เรื่อยๆ ได้ของดีเพิ่มไม่มีวันหมด</p>
+                    </div>
                 </div>
             </div>
 
-            <!-- Bonus 2 -->
-            <div class="bg-white rounded-2xl p-6 shadow-md border border-orange-100 flex items-start gap-5 hover:shadow-xl hover:-translate-y-0.5 transition duration-300">
-                <div class="flex-shrink-0 w-14 h-14 bg-green-100 rounded-xl flex items-center justify-center text-primary text-2xl shadow-sm">
-                    <i class="fa-solid fa-headset"></i>
-                </div>
-                <div>
-                    <h4 class="font-bold text-lg text-gray-800 mb-1">❤️ ถามได้เลย! เข็นจนกว่าคุณจะทำเป็น</h4>
-                    <p class="text-gray-500 text-sm">อ่านแล้วไม่เข้าใจ ติดตรงไหน สามารถถามผมได้เลย ผมเข็นจนกว่าคุณจะทำเป็น ไม่ทิ้งกันกลางทาง!</p>
-                </div>
-            </div>
-
-            <!-- Bonus 3 -->
-            <div class="bg-white rounded-2xl p-6 shadow-md border border-orange-100 flex items-start gap-5 hover:shadow-xl hover:-translate-y-0.5 transition duration-300">
-                <div class="flex-shrink-0 w-14 h-14 bg-purple-100 rounded-xl flex items-center justify-center text-purple-600 text-2xl shadow-sm">
-                    <i class="fa-solid fa-gift"></i>
-                </div>
-                <div>
-                    <h4 class="font-bold text-lg text-gray-800 mb-1">❤️ แถม Template Workflow จากกลุ่มทำไลน์ Community ให้ต่อเนื่อง</h4>
-                    <p class="text-gray-500 text-sm">ยังไม่หมด! ผมแถม Template ต่างๆ ของ Workflow ที่ผมโพสลงไปในเพจให้เรื่อยๆ ได้ของดีเพิ่มไม่มีวันหมด</p>
-                </div>
+            <div class="text-center mt-10">
+                <a href="#pricing"
+                    class="inline-flex items-center gap-2 bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white font-bold text-lg py-4 px-10 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition duration-300">
+                    <i class="fa-solid fa-bolt"></i> รับสิทธิ์เลย — สั่งซื้อตอนนี้!
+                </a>
             </div>
         </div>
+    </section>
 
-        <div class="text-center mt-10">
-            <a href="#pricing" class="inline-flex items-center gap-2 bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white font-bold text-lg py-4 px-10 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition duration-300">
-                <i class="fa-solid fa-bolt"></i> รับสิทธิ์เลย — สั่งซื้อตอนนี้!
-            </a>
-        </div>
-    </div>
-</section>
+    <!-- ========== PRICING + QR CODE ========== -->
+    <section class="py-20 relative overflow-hidden" id="pricing">
+        <div class="absolute inset-0 bg-green-50 transform -skew-y-3 origin-top-left z-0"></div>
+        <div class="max-w-5xl mx-auto px-4 relative z-10">
+            <div class="text-center mb-10">
+                <h2 class="text-2xl md:text-3xl font-bold text-gray-800 leading-snug">"ลงทุนหลักร้อย<br><span
+                        class="text-primary">เพื่อเรียนรู้ทักษะลดเวลาทำงานไป<span
+                            class="text-secondary">ตลอดชีวิต</span>"</span></h2>
+            </div>
 
-<!-- ========== PRICING + QR CODE ========== -->
-<section class="py-20 relative overflow-hidden" id="pricing">
-    <div class="absolute inset-0 bg-green-50 transform -skew-y-3 origin-top-left z-0"></div>
-    <div class="max-w-5xl mx-auto px-4 relative z-10">
-        <div class="text-center mb-10">
-            <h2 class="text-2xl md:text-3xl font-bold text-gray-800 leading-snug">"ลงทุนหลักร้อย<br><span class="text-primary">เพื่อเรียนรู้ทักษะลดเวลาทำงานไป<span class="text-secondary">ตลอดชีวิต</span>"</span></h2>
-        </div>
-
-        <div class="grid md:grid-cols-2 gap-8 items-start">
-            <!-- Pricing Card -->
-            <div class="bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-100 transform hover:scale-[1.02] transition duration-300">
-                <div class="bg-primary p-6 text-center text-white">
-                    <h3 class="text-2xl font-bold">Promotion เปิดตัว!</h3>
-                    <p class="text-green-100 text-sm">จำนวนจำกัด ราคาหลักร้อย ได้ความรู้ติดตัวตลอดชีพ</p>
+            <div class="grid md:grid-cols-2 gap-8 items-start">
+                <!-- Pricing Card -->
+                <div
+                    class="bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-100 transform hover:scale-[1.02] transition duration-300">
+                    <div class="bg-primary p-6 text-center text-white">
+                        <h3 class="text-2xl font-bold">Promotion เปิดตัว!</h3>
+                        <p class="text-green-100 text-sm">จำนวนจำกัด ราคาหลักร้อย ได้ความรู้ติดตัวตลอดชีพ</p>
+                    </div>
+                    <div class="p-8 text-center">
+                        <div class="flex justify-center items-center gap-3 mb-4"><span
+                                class="text-gray-400 text-xl line-through">ราคาปกติ 790.-</span></div>
+                        <div class="text-6xl font-extrabold text-gray-800 mb-2 gradient-text">599.-</div>
+                        <p class="text-gray-500 mb-6 font-semibold">รับไฟล์ E-Book (PDF) | ชำระครั้งเดียวจบ</p>
+                        <ul class="text-left space-y-3 mb-8 pl-4 border-t border-b py-6 bg-gray-50 rounded-lg">
+                            <li class="flex items-center"><i class="fa-solid fa-check-circle text-primary mr-3"></i>
+                                อัดแน่น 5 บทเรียนหลัก + 2 เวิร์กชอปใหญ่</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check-circle text-primary mr-3"></i>
+                                แถมฟรีลิงก์โหลด Workflow สำเร็จรูป</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check-circle text-primary mr-3"></i>
+                                สร้างระบบ Automation แบบมืออาชีพ</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check-circle text-primary mr-3"></i>
+                                อัปสกิลการทำงานด้าน IT ให้โดดเด่น</li>
+                        </ul>
+                        <a href="https://forms.gle/JwkSm3G8jBGQ4vMNA" target="_blank"
+                            class="block w-full bg-gradient-to-r from-primary to-secondary text-white font-bold text-xl py-4 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition duration-300 group">
+                            <span class="flex flex-col items-center">
+                                <span>ช้อปเลย (คลิกที่นี่)</span>
+                                <span class="text-xs font-normal opacity-90 mt-1"><i
+                                        class="fa-solid fa-qrcode mr-1"></i> รองรับ PromptPay</span>
+                            </span>
+                        </a>
+                    </div>
                 </div>
-                <div class="p-8 text-center">
-                    <div class="flex justify-center items-center gap-3 mb-4"><span class="text-gray-400 text-xl line-through">ราคาปกติ 790.-</span></div>
-                    <div class="text-6xl font-extrabold text-gray-800 mb-2 gradient-text">599.-</div>
-                    <p class="text-gray-500 mb-6 font-semibold">รับไฟล์ E-Book (PDF) | ชำระครั้งเดียวจบ</p>
-                    <ul class="text-left space-y-3 mb-8 pl-4 border-t border-b py-6 bg-gray-50 rounded-lg">
-                        <li class="flex items-center"><i class="fa-solid fa-check-circle text-primary mr-3"></i> อัดแน่น 5 บทเรียนหลัก + 2 เวิร์กชอปใหญ่</li>
-                        <li class="flex items-center"><i class="fa-solid fa-check-circle text-primary mr-3"></i> แถมฟรีลิงก์โหลด Workflow สำเร็จรูป</li>
-                        <li class="flex items-center"><i class="fa-solid fa-check-circle text-primary mr-3"></i> สร้างระบบ Automation แบบมืออาชีพ</li>
-                        <li class="flex items-center"><i class="fa-solid fa-check-circle text-primary mr-3"></i> อัปสกิลการทำงานด้าน IT ให้โดดเด่น</li>
-                    </ul>
-                    <a href="https://forms.gle/JwkSm3G8jBGQ4vMNA" target="_blank" class="block w-full bg-gradient-to-r from-primary to-secondary text-white font-bold text-xl py-4 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition duration-300 group">
-                        <span class="flex flex-col items-center">
-                            <span>ช้อปเลย (คลิกที่นี่)</span>
-                            <span class="text-xs font-normal opacity-90 mt-1"><i class="fa-solid fa-qrcode mr-1"></i> รองรับ PromptPay</span>
+
+                <!-- QR Code Card -->
+                <div
+                    class="bg-white rounded-2xl shadow-2xl border-2 border-primary/30 p-8 text-center relative overflow-hidden hover:border-primary transition duration-300">
+                    <div
+                        class="absolute top-0 right-0 bg-red-500 text-white text-[11px] font-bold px-3 py-1.5 rounded-bl-xl z-10">
+                        🔥 ขายดี!</div>
+                    <div class="mb-4">
+                        <span
+                            class="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-bold">
+                            <i class="fa-solid fa-qrcode animate-pulse"></i> สแกนจ่ายได้เลย
                         </span>
-                    </a>
-                </div>
-            </div>
-
-            <!-- QR Code Card -->
-            <div class="bg-white rounded-2xl shadow-2xl border-2 border-primary/30 p-8 text-center relative overflow-hidden hover:border-primary transition duration-300">
-                <div class="absolute top-0 right-0 bg-red-500 text-white text-[11px] font-bold px-3 py-1.5 rounded-bl-xl z-10">🔥 ขายดี!</div>
-                <div class="mb-4">
-                    <span class="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-bold">
-                        <i class="fa-solid fa-qrcode animate-pulse"></i> สแกนจ่ายได้เลย
-                    </span>
-                </div>
-                <h3 class="text-xl font-bold text-gray-800 mb-2">ชำระผ่าน QR Code</h3>
-                <p class="text-gray-500 text-sm mb-6">รองรับ Mobile Banking ทุกธนาคาร<br>จ่ายผ่าน PromptPay ได้ทันที</p>
-
-                <div class="bg-gradient-to-br from-green-50 to-emerald-50 p-6 rounded-2xl border-2 border-dashed border-green-200 mb-6 inline-block cursor-pointer group" onclick="openLightbox('images/qr-code-1774167107152.png')">
-                    <img src="images/qr-code-1774167107152.png" onerror="this.src='https://placehold.co/256x256/00C300/FFF?text=QR+Code'" alt="QR Code สำหรับชำระเงิน" class="w-48 h-48 object-contain mx-auto group-hover:scale-105 transition duration-300">
-                    <p class="text-xs text-gray-400 mt-3 flex items-center justify-center gap-1">
-                        <i class="fa-solid fa-expand"></i> คลิกเพื่อขยาย QR Code
-                    </p>
-                </div>
-
-                <a href="https://forms.gle/JwkSm3G8jBGQ4vMNA" target="_blank" class="block w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white font-bold py-3 px-4 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition duration-300 mb-4">
-                    <span class="flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-file-invoice"></i> แจ้งชำระเงิน (คลิกที่นี่)
-                    </span>
-                    <span class="block text-xs font-normal opacity-90 mt-1 text-center">หลังโอนเงินแล้ว กรุณาแจ้งชำระเงินเพื่อรับ E-Book</span>
-                </a>
-
-                <div class="bg-green-50 rounded-lg p-3 text-sm text-left border border-green-100">
-                    <div class="flex items-center gap-2 font-bold text-green-700 mb-1">
-                        <i class="fa-solid fa-shield-halved text-green-500"></i> ชำระเงินปลอดภัย 100%
                     </div>
-                    <p class="text-gray-500 text-xs">รองรับการชำระผ่าน PromptPay QR Code ทุกธนาคาร หลังชำระเงินจะได้รับ E-Book ทางอีเมล</p>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">ชำระผ่าน QR Code</h3>
+                    <p class="text-gray-500 text-sm mb-6">รองรับ Mobile Banking ทุกธนาคาร<br>จ่ายผ่าน PromptPay ได้ทันที
+                    </p>
+
+                    <div class="bg-gradient-to-br from-green-50 to-emerald-50 p-6 rounded-2xl border-2 border-dashed border-green-200 mb-6 inline-block cursor-pointer group"
+                        onclick="openLightbox('images/qr-code-1774167107152.png')">
+                        <img src="images/qr-code-1774167107152.png"
+                            onerror="this.src='https://placehold.co/256x256/00C300/FFF?text=QR+Code'"
+                            alt="QR Code สำหรับชำระเงิน"
+                            class="w-48 h-48 object-contain mx-auto group-hover:scale-105 transition duration-300">
+                        <p class="text-xs text-gray-400 mt-3 flex items-center justify-center gap-1">
+                            <i class="fa-solid fa-expand"></i> คลิกเพื่อขยาย QR Code
+                        </p>
+                    </div>
+
+                    <a href="https://forms.gle/JwkSm3G8jBGQ4vMNA" target="_blank"
+                        class="block w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white font-bold py-3 px-4 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition duration-300 mb-4">
+                        <span class="flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-file-invoice"></i> แจ้งชำระเงิน (คลิกที่นี่)
+                        </span>
+                        <span class="block text-xs font-normal opacity-90 mt-1 text-center">หลังโอนเงินแล้ว
+                            กรุณาแจ้งชำระเงินเพื่อรับ E-Book</span>
+                    </a>
+
+                    <div class="bg-green-50 rounded-lg p-3 text-sm text-left border border-green-100">
+                        <div class="flex items-center gap-2 font-bold text-green-700 mb-1">
+                            <i class="fa-solid fa-shield-halved text-green-500"></i> ชำระเงินปลอดภัย 100%
+                        </div>
+                        <p class="text-gray-500 text-xs">รองรับการชำระผ่าน PromptPay QR Code ทุกธนาคาร
+                            หลังชำระเงินจะได้รับ E-Book ทางอีเมล</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- ========== FOOTER ========== -->
-<footer class="bg-gray-100 py-12 text-center text-gray-500 text-sm border-t border-gray-200">
-    <div class="max-w-4xl mx-auto px-4 flex flex-col items-center">
-        <div class="mb-6 flex flex-col items-center">
-            <img src="images/profile.jpg" alt="Logo" class="w-16 h-16 rounded-full shadow-md mb-2 border border-gray-200">
-            <span class="font-bold text-lg text-gray-800">Sataphat Denduang</span>
+    <!-- ========== FOOTER ========== -->
+    <footer class="bg-gray-100 py-12 text-center text-gray-500 text-sm border-t border-gray-200">
+        <div class="max-w-4xl mx-auto px-4 flex flex-col items-center">
+            <div class="mb-6 flex flex-col items-center">
+                <img src="images/profile.jpg" alt="Logo"
+                    class="w-16 h-16 rounded-full shadow-md mb-2 border border-gray-200">
+                <span class="font-bold text-lg text-gray-800">Sataphat Denduang</span>
+            </div>
+            <p>&copy; 2026 Sataphat Denduang. สงวนลิขสิทธิ์.</p>
         </div>
-        <p>&copy; 2026 Sataphat Denduang. สงวนลิขสิทธิ์.</p>
+    </footer>
+
+    <!-- ========== LIGHTBOX MODAL ========== -->
+    <div id="lightbox-modal"
+        class="hidden fixed inset-0 z-[60] bg-black/90 flex items-center justify-center p-4 backdrop-blur-md"
+        onclick="closeLightbox()">
+        <button class="absolute top-6 right-6 text-white text-4xl hover:text-gray-300 focus:outline-none"
+            onclick="closeLightbox()">&times;</button>
+        <img id="lightbox-img" src=""
+            class="max-h-[90vh] max-w-[95vw] object-contain rounded-lg shadow-2xl transform transition-transform duration-300 scale-95 opacity-0"
+            onclick="event.stopPropagation()">
     </div>
-</footer>
 
-<!-- ========== LIGHTBOX MODAL ========== -->
-<div id="lightbox-modal" class="hidden fixed inset-0 z-[60] bg-black/90 flex items-center justify-center p-4 backdrop-blur-md" onclick="closeLightbox()">
-    <button class="absolute top-6 right-6 text-white text-4xl hover:text-gray-300 focus:outline-none" onclick="closeLightbox()">&times;</button>
-    <img id="lightbox-img" src="" class="max-h-[90vh] max-w-[95vw] object-contain rounded-lg shadow-2xl transform transition-transform duration-300 scale-95 opacity-0" onclick="event.stopPropagation()">
-</div>
-
-<!-- ========== SCRIPTS ========== -->
-<script>
-    // Accordion
-    function toggleAccordion(btn) {
-        const content = btn.nextElementSibling;
-        const isOpen = content.classList.contains('open');
-        // Close all
-        document.querySelectorAll('.accordion-content').forEach(el => el.classList.remove('open'));
-        document.querySelectorAll('.accordion-btn').forEach(el => el.classList.remove('active'));
-        // Toggle current
-        if (!isOpen) {
-            content.classList.add('open');
-            btn.classList.add('active');
-        }
-    }
-
-    // Lightbox
-    function openLightbox(src) {
-        const modal = document.getElementById('lightbox-modal');
-        const img = document.getElementById('lightbox-img');
-        modal.classList.remove('hidden');
-        img.src = src;
-        setTimeout(() => { img.classList.remove('scale-95','opacity-0'); img.classList.add('scale-100','opacity-100'); }, 10);
-    }
-    function closeLightbox() {
-        const modal = document.getElementById('lightbox-modal');
-        const img = document.getElementById('lightbox-img');
-        img.classList.remove('scale-100','opacity-100');
-        img.classList.add('scale-95','opacity-0');
-        setTimeout(() => { modal.classList.add('hidden'); img.src = ''; }, 300);
-    }
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
-
-    // Navbar scroll effect
-    window.addEventListener('scroll', () => {
-        const nav = document.getElementById('navbar');
-        if (window.scrollY > 50) { nav.classList.add('shadow-md','py-2'); nav.classList.remove('py-3'); }
-        else { nav.classList.remove('shadow-md','py-2'); nav.classList.add('py-3'); }
-    });
-
-    // Scroll animation (IntersectionObserver)
-    const observerOpts = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
+    <!-- ========== SCRIPTS ========== -->
+    <script>
+        // Accordion
+        function toggleAccordion(btn) {
+            const content = btn.nextElementSibling;
+            const isOpen = content.classList.contains('open');
+            // Close all
+            document.querySelectorAll('.accordion-content').forEach(el => el.classList.remove('open'));
+            document.querySelectorAll('.accordion-btn').forEach(el => el.classList.remove('active'));
+            // Toggle current
+            if (!isOpen) {
+                content.classList.add('open');
+                btn.classList.add('active');
             }
+        }
+
+        // Lightbox
+        function openLightbox(src) {
+            const modal = document.getElementById('lightbox-modal');
+            const img = document.getElementById('lightbox-img');
+            modal.classList.remove('hidden');
+            img.src = src;
+            setTimeout(() => { img.classList.remove('scale-95', 'opacity-0'); img.classList.add('scale-100', 'opacity-100'); }, 10);
+        }
+        function closeLightbox() {
+            const modal = document.getElementById('lightbox-modal');
+            const img = document.getElementById('lightbox-img');
+            img.classList.remove('scale-100', 'opacity-100');
+            img.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => { modal.classList.add('hidden'); img.src = ''; }, 300);
+        }
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) { nav.classList.add('shadow-md', 'py-2'); nav.classList.remove('py-3'); }
+            else { nav.classList.remove('shadow-md', 'py-2'); nav.classList.add('py-3'); }
         });
-    }, observerOpts);
-    document.querySelectorAll('section > div').forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(el);
-    });
-</script>
+
+        // Scroll animation (IntersectionObserver)
+        const observerOpts = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOpts);
+        document.querySelectorAll('section > div').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
 </body>
+
 </html>
